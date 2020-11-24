@@ -12,13 +12,17 @@ import retrofit2.Response;
 
 public class SupercarsViewModel extends AndroidViewModel {
 
-    static MutableLiveData<Supercars.Respuesta> respuestaMutableLiveData = new MutableLiveData<>();
+    // aquí el "static" ya no es necesario, porque en el fragment ahora se accede a través del objeto, y no de la clase
+
+    MutableLiveData<Supercars.Respuesta> respuestaMutableLiveData = new MutableLiveData<>();
 
     public SupercarsViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public void buscar(String texto){
+
+    // El parámetro "texto" no es necesario, ya que no se van a buscar "coches"
+    public void buscar(){
         Supercars.api.buscar().enqueue(new Callback<Supercars.Respuesta>() {
             @Override
             public void onResponse(@NonNull Call<Supercars.Respuesta> call, @NonNull Response<Supercars.Respuesta> response) {
