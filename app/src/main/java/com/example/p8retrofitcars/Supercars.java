@@ -9,15 +9,17 @@ import retrofit2.http.GET;
 
 public class Supercars {
 
+    // las clases para modelar el JSON
     class Respuesta {
-        List<Coche> results;
+        List<Coche> documents;
     }
 
     class Coche {
-        CocheFields cocheFields;
+        String name;
+        CocheFields fields;
     }
 
-    class CocheFields {
+    class CocheFields{
         StringValue marca;
         StringValue modelo;
         StringValue imagen;
@@ -26,14 +28,18 @@ public class Supercars {
     class StringValue{
         String stringValue;
     }
+
+
     public static Api api = new Retrofit.Builder()
             .baseUrl("https://firestore.googleapis.com/v1/projects/p8retrofit/databases/(default)/documents/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(Api.class);
 
+
+    // aquí no hay que poner la barra, para que así la ruta sea "relativa" a la baseUrl
     public interface Api {
-        @GET("/Supercars")
+        @GET("Supercars")
         Call<Respuesta> buscar();
     }
 }
